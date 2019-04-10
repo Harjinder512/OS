@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include<pthread.h>
+
+int i, number, t1 = 0, t2 = 1, nextTerm;
+int arr[1000];  //i want to change this static 1000 to variable number, check if you can find the answer
+
+void *show(void *n){    
+    
+    for (i = 0; i < number; i++)
+    {
+        //printf("%d, ", t1);
+        arr[i]=t1;
+        nextTerm = t1 + t2;
+        t1 = t2;
+        t2 = nextTerm;
+    }
+    
+}
+
+int main()
+{
+    
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &number);
+    
+
+    printf("Fibonacci Series: ");
+    
+    pthread_t p1;
+    pthread_create(&p1, NULL,&show, NULL);
+    pthread_join(p1,NULL);
+    
+    for(int i=0;i<number;i++)
+    {
+        printf("%d, ",arr[i]);
+    }
+    printf("\n");
+    return 0;
+}
